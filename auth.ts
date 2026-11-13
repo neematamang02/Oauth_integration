@@ -23,6 +23,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
 
             async jwt({ token, user }) {
+                console.log("jwt callback", { hasUser: !!user, role: user?.role });
       // `user` is the database user, only present at sign-in
       if (user) token.role = user.role;
       return token;
@@ -30,6 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         async session({ session, token }) {
       if (token.sub) session.user.id = token.sub;
+      session.user.role = token.role ?? "USER";
       return session;
     },
     },
