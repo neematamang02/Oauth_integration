@@ -7,7 +7,7 @@ async function UserCard() {
   const session = await auth();
   if (!session?.user) redirect("/");
 
-  const { name, email, image, id } = session.user;
+  const { name, email, image, id, role } = session.user;
 
   return (
     <>
@@ -24,6 +24,7 @@ async function UserCard() {
       <h1 className="text-2xl font-semibold">Hello, {name}</h1>
       <p className="text-neutral-500">{email}</p>
       <p className="text-xs text-neutral-400">User ID: {id}</p>
+      <p className="text-xs text-neutral-400">Role: {role}</p>
       <SignOutButton />
     </>
   );
